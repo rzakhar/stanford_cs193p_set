@@ -80,7 +80,7 @@ class ViewController: UIViewController {
                 button.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
                 button.layer.cornerRadius = 8
                 
-                if game.cardSelection[counter] == true {
+                if game.selectedCards.contains(game.cards[counter]) {
                     button.layer.borderWidth = 3.0
                     button.layer.borderColor = UIColor.white.cgColor
                 } else {

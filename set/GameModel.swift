@@ -11,45 +11,54 @@ import Foundation
 class GameSet {
     
     private(set) var cards = [Card]()
-    private(set) var cardSelection = [Bool]()
+    private(set) var selectedCards = [Card]()
     private(set) var deck = [Card]()
     private(set) var score = 0
     
     func selectCard(_ index: Int) {
-        cardSelection[index].toggle()
-        print(index)
-        print(cards[index])
-        let selectedCardsIndices = cardSelection.indices.filter( { cardSelection[$0] } )
-        if selectedCardsIndices.count == 3 {
-            let selectedCards = selectedCardsIndices.map { cards[$0] }
+        if selectedCards.contains(cards[index]) {
+            selectedCards.removeAll(where: { $0 == cards[index] } )
+        } else {
+            selectedCards.append(cards[index])
+        }
+        if selectedCards.count == 3 {
             let types = selectedCards.map { $0.figure }
             let counts = selectedCards.map { $0.count }
             let colors = selectedCards.map { $0.color }
             let styles = selectedCards.map { $0.style }
-            
+
             if types.allElementsEqualOrUnique,
                 counts.allElementsEqualOrUnique,
                 colors.allElementsEqualOrUnique,
                 styles.allElementsEqualOrUnique {
                 score += 10
-                for i in selectedCardsIndices.reversed() {
+                for card in selectedCards {
                     if deck.count > 0 {
-                        cards[i] = deck.remove(at: 0)
-                        cardSelection[i] = false
+                        replaceCard(card)
                     } else {
-                        deleteCard(i)
+                        deleteCard(card)
                     }
                 }
             } else {
                 score -= 10
-                cardSelection = cardSelection.map { _ in false }
+            }
+            selectedCards = []
+        }
+    }
+    
+    private func replaceCard(_ card: Card) {
+        cards = cards.map { c -> Card in
+            if c == card {
+                
+                return deck.remove(at: 0)
+            } else {
+                return c
             }
         }
     }
     
-    private func deleteCard(_ index: Int) {
-        cards.remove(at: index)
-        cardSelection.remove(at: index)
+    private func deleteCard(_ card: Card) {
+        cards.removeAll(where: { $0 == card } )
     }
     
     func addThreeCards() {
@@ -60,7 +69,6 @@ class GameSet {
         assert(deck.count >= count, "Deck is empty")
         for _ in 0..<count {
             cards.append(deck.removeFirst())
-            cardSelection.append(false)
         }
     }
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Card {
+struct Card: Equatable {
     let figure: FigureType
     let count: FigureCount
     let style: FigureStyle
