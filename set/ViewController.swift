@@ -98,10 +98,13 @@ class ViewController: UIViewController {
             }
             counter += 1
         }
+        
         if game.deck.count < 3 || game.cards.count > 21 {
             add3CardsButton.isHidden = true
         } else {
             add3CardsButton.isHidden = false
         }
+        
+        scoreLabel.text = "Score: \(game.score)"
     }
 }
