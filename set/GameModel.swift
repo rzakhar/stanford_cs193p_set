@@ -33,7 +33,12 @@ class GameSet {
                 styles.allElementsEqualOrUnique {
                 score += 10
                 for i in selectedCardsIndices.reversed() {
-                    deleteCard(i)
+                    if deck.count > 0 {
+                        cards[i] = deck.remove(at: 0)
+                        cardSelection[i] = false
+                    } else {
+                        deleteCard(i)
+                    }
                 }
             } else {
                 score -= 10
