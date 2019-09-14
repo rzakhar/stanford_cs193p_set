@@ -10,36 +10,36 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var game = GameSet()
+    private var game = GameSet()
     
-    @IBAction func tapNewGame() {
+    @IBAction private func tapNewGame() {
         game = GameSet()
         redrawCards()
     }
     
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet private weak var scoreLabel: UILabel!
     
-    @IBOutlet weak var add3CardsButton: UIButton!
+    @IBOutlet private weak var add3CardsButton: UIButton!
     
-    @IBAction func tapAdd3Cards(_ sender: UIButton) {
+    @IBAction private func tapAdd3Cards(_ sender: UIButton) {
         game.addThreeCards()
         redrawCards()
     }
     
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet private var cardButtons: [UIButton]!
     
     
-    @IBAction func tapCard(_ sender: UIButton) {
+    @IBAction private func tapCard(_ sender: UIButton) {
         game.selectCard(cardButtons.firstIndex(of: sender)!)
         redrawCards()
     }
     
-    override func viewDidLoad() {
+    internal override func viewDidLoad() {
         super.viewDidLoad()
         redrawCards()
     }
     
-    func redrawCards() {
+    private func redrawCards() {
         var counter = 0
         let cardsCount = game.cards.count
         

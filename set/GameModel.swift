@@ -16,6 +16,8 @@ class GameSet {
     private(set) var score = 0
     
     func selectCard(_ index: Int) {
+        assert((0..<cards.count).contains(index), "Incorrect index of card.")
+
         if selectedCards.contains(cards[index]) {
             selectedCards.removeAll(where: { $0 == cards[index] } )
         } else {
@@ -47,18 +49,22 @@ class GameSet {
     }
     
     private func replaceCard(_ card: Card) {
-        cards = cards.map { c -> Card in
-            if c == card {
-                
-                return deck.remove(at: 0)
-            } else {
-                return c
-            }
-        }
+        let cardIndex = getCardIndex(card)
+        cards[cardIndex] = deck.remove(at: 0)
     }
     
     private func deleteCard(_ card: Card) {
-        cards.removeAll(where: { $0 == card } )
+        let cardIndex = getCardIndex(card)
+        cards.remove(at: cardIndex)
+    }
+    
+    private func getCardIndex(_ card: Card) -> Int {
+        guard let cardIndex = cards.firstIndex(of: card) else {
+            assertionFailure("The card is not on the table.")
+            
+            return 0
+        }
+        return cardIndex
     }
     
     func addThreeCards() {
@@ -66,7 +72,7 @@ class GameSet {
     }
     
     private func openNewCards(count: Int) {
-        assert(deck.count >= count, "Deck is empty")
+        assert(deck.count >= count, "Deck is empty.")
         for _ in 0..<count {
             cards.append(deck.removeFirst())
         }
