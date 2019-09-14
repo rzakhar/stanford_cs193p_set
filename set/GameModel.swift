@@ -35,6 +35,9 @@ class GameSet {
                 for i in selectedCardsIndices.reversed() {
                     deleteCard(i)
                 }
+            } else {
+                score -= 10
+                cardSelection = cardSelection.map { _ in false }
             }
         }
     }
