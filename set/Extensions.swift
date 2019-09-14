@@ -32,7 +32,7 @@ extension Array where Element : Equatable {
         } else {
             let firstElement = first!
             
-            return filter( { $0 == firstElement } ).count == count
+            return count(of: firstElement) == count
         }
     }
     
@@ -40,7 +40,7 @@ extension Array where Element : Equatable {
         var arrayCopy = self
         while arrayCopy.count > 0 {
             let firstElement = arrayCopy.first!
-            if arrayCopy.filter( { $0 == firstElement } ).count != 1 {
+            if arrayCopy.count(of: firstElement) != 1 {
                 
                 return false
             } else {
@@ -49,5 +49,9 @@ extension Array where Element : Equatable {
         }
         
         return true
+    }
+    
+    func count(of element: Element) -> Int {
+        return filter( { $0 == element } ).count
     }
 }
