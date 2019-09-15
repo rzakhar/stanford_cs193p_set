@@ -12,6 +12,7 @@ class GameSet {
     
     private(set) var cards = [Card]()
     private(set) var selectedCards = [Card]()
+    private var possibleSet = [Card]()
     private(set) var deck = [Card]()
     private(set) var score = 0
     
@@ -24,15 +25,7 @@ class GameSet {
             selectedCards.append(cards[index])
         }
         if selectedCards.count == 3 {
-            let types = selectedCards.map { $0.figure }
-            let counts = selectedCards.map { $0.count }
-            let colors = selectedCards.map { $0.color }
-            let styles = selectedCards.map { $0.style }
-
-            if types.allElementsEqualOrUnique,
-                counts.allElementsEqualOrUnique,
-                colors.allElementsEqualOrUnique,
-                styles.allElementsEqualOrUnique {
+            if cardsMakeSet(selectedCards) {
                 score += 10
                 for card in selectedCards {
                     if deck.count > 0 {
@@ -41,11 +34,54 @@ class GameSet {
                         deleteCard(card)
                     }
                 }
+                findPossibleSet()
             } else {
                 score -= 10
             }
             selectedCards = []
         }
+    }
+    
+    func cheat() {
+        score -= 9
+        if possibleSet.count == 3 {
+            selectedCards = possibleSet
+            selectedCards.remove(at: [0, 1, 2].randomElement()!)
+        } else {
+            if deck.count >= 3 {
+                addThreeCards()
+            }
+        }
+    }
+    
+    private func cardsMakeSet(_ cards: [Card]) -> Bool {
+        let types = cards.map { $0.figure }
+        let counts = cards.map { $0.count }
+        let colors = cards.map { $0.color }
+        let styles = cards.map { $0.style }
+        
+        return types.allElementsEqualOrUnique &&
+                counts.allElementsEqualOrUnique &&
+                colors.allElementsEqualOrUnique &&
+                styles.allElementsEqualOrUnique
+    }
+    
+    private func findPossibleSet() {
+        for i in cards.indices {
+            for j in cards.indices {
+                for k in cards.indices {
+                    if i < j, j < k {
+                        let setCandidate = [cards[i], cards[j], cards[k]]
+                        if cardsMakeSet(setCandidate) {
+                            possibleSet = setCandidate
+                            
+                            return
+                        }
+                    }
+                }
+            }
+        }
+        possibleSet = []
     }
     
     private func replaceCard(_ card: Card) {
@@ -68,6 +104,9 @@ class GameSet {
     }
     
     func addThreeCards() {
+        if possibleSet.count > 0 {
+            score -= 50
+        }
         openNewCards(count: 3)
     }
     
@@ -76,6 +115,7 @@ class GameSet {
         for _ in 0..<count {
             cards.append(deck.removeFirst())
         }
+        findPossibleSet()
     }
     
     init() {

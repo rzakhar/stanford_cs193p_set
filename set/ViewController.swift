@@ -12,8 +12,10 @@ class ViewController: UIViewController {
     
     private var game = GameSet()
     
-    @IBAction private func tapNewGame() {
-        game = GameSet()
+    @IBOutlet private weak var cheatButton: UIButton!
+
+    @IBAction func tapCheatButton(_ sender: Any) {
+        game.cheat()
         redrawCards()
     }
     
@@ -23,6 +25,13 @@ class ViewController: UIViewController {
     
     @IBAction private func tapAdd3Cards(_ sender: UIButton) {
         game.addThreeCards()
+        redrawCards()
+    }
+    
+    @IBOutlet private weak var newGameButton: UIButton!
+
+    @IBAction private func tapNewGame() {
+        game = GameSet()
         redrawCards()
     }
     
@@ -37,6 +46,19 @@ class ViewController: UIViewController {
     internal override func viewDidLoad() {
         super.viewDidLoad()
         redrawCards()
+        
+        for cardButton in cardButtons {
+            cardButton.layer.cornerRadius = 8
+            cardButton.titleLabel?.numberOfLines = 1
+            cardButton.titleLabel?.adjustsFontSizeToFitWidth = true;
+            cardButton.titleLabel?.lineBreakMode = .byClipping
+        }
+        
+        for interfaceButton in [add3CardsButton, cheatButton, newGameButton] {
+            interfaceButton?.layer.cornerRadius = 8
+            interfaceButton?.layer.borderWidth = 0.5
+            interfaceButton?.layer.borderColor = UIColor.black.cgColor
+        }
     }
     
     private func redrawCards() {
@@ -78,10 +100,9 @@ class ViewController: UIViewController {
                 button.setAttributedTitle(attributedString, for: .normal)
                 button.isEnabled = true
                 button.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
-                button.layer.cornerRadius = 8
-                
+
                 if game.selectedCards.contains(game.cards[counter]) {
-                    button.layer.borderWidth = 3.0
+                    button.layer.borderWidth = 5.0
                     button.layer.borderColor = UIColor.white.cgColor
                 } else {
                     button.layer.borderWidth = 0.0
