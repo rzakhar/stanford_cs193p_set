@@ -119,10 +119,10 @@ class GameSet {
     }
     
     init() {
-        for figure in FigureType.allCases {
-            for count in FigureCount.allCases {
-                for style in FigureStyle.allCases {
-                    for color in FigureColor.allCases {
+        for figure in Card.FigureType.allCases {
+            for count in Card.FigureCount.allCases {
+                for style in Card.FigureStyle.allCases {
+                    for color in Card.FigureColor.allCases {
                         deck.append(Card(figure: figure,
                                           count: count,
                                           style: style,
@@ -131,7 +131,7 @@ class GameSet {
                 }
             }
         }
-        deck.shuffle()
+        //deck.shuffle()
         openNewCards(count: 12)
     }
 }

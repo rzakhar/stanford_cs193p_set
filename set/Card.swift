@@ -8,33 +8,35 @@
 
 import Foundation
 
-struct Card: Equatable {
+struct Card: Equatable, CustomStringConvertible {
+    var description: String { return "\(count) \(style) \(color) \(figure)" }
+
     let figure: FigureType
     let count: FigureCount
     let style: FigureStyle
     let color: FigureColor
-}
 
-enum FigureType: CaseIterable {
-    case triangle
-    case square
-    case circle
-}
+    enum FigureType: String, CaseIterable {
+        case triangle
+        case square
+        case circle
+    }
 
-enum FigureCount: Int, CaseIterable {
-    case one = 1
-    case two = 2
-    case three = 3
-}
+    enum FigureCount: Int, CaseIterable {
+        case one
+        case two
+        case three
+    }
 
-enum FigureStyle: CaseIterable {
-    case filled
-    case striped
-    case outlined
-}
+    enum FigureStyle: String, CaseIterable {
+        case filled
+        case striped
+        case outlined
+    }
 
-enum FigureColor: CaseIterable {
-    case blue
-    case green
-    case red
+    enum FigureColor: String, CaseIterable {
+        case blue
+        case green
+        case red
+    }
 }
