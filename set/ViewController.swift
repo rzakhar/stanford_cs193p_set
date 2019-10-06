@@ -38,7 +38,8 @@ class ViewController: UIViewController {
     @objc func tapCard(sender: UITapGestureRecognizer) {
         let cardsCount = game.cards.count
 
-        var grid = Grid(frame: boardView.bounds)
+        // TODO: move somewhere
+        var grid = Grid(layout: .aspectRatio(8 / 12), frame: boardView.bounds)
         grid.cellCount = cardsCount
         
         let location = sender.location(in: boardView)
@@ -70,7 +71,8 @@ class ViewController: UIViewController {
     private func redrawCards() {
         let cardsCount = game.cards.count
         
-        var grid = Grid(frame: boardView.bounds)
+        // TODO: move somewhere
+        var grid = Grid(layout: .aspectRatio(2 / 3), frame: boardView.bounds)
         grid.cellCount = cardsCount
         
         for subView in boardView.subviews {

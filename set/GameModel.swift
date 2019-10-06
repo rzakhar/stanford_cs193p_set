@@ -131,7 +131,7 @@ class GameSet {
                 }
             }
         }
-        //deck.shuffle()
+        deck.shuffle()
         openNewCards(count: 12)
     }
 }

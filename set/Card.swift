@@ -17,26 +17,26 @@ struct Card: Equatable, CustomStringConvertible {
     let color: FigureColor
 
     enum FigureType: String, CaseIterable {
-        case triangle
-        case square
-        case circle
+        case diamond
+        case squiggle
+        case oval
     }
 
     enum FigureCount: Int, CaseIterable {
-        case one
-        case two
-        case three
+        case one = 1
+        case two = 2
+        case three = 3
     }
 
     enum FigureStyle: String, CaseIterable {
-        case filled
+        case solid
         case striped
-        case outlined
+        case open
     }
 
     enum FigureColor: String, CaseIterable {
-        case blue
-        case green
         case red
+        case green
+        case purple
     }
 }

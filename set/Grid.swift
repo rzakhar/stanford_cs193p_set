@@ -31,11 +31,6 @@ import UIKit
 
 struct Grid {
     
-    init(frame: CGRect) {
-        layout = .aspectRatio(5 / 8)
-        self.frame = frame
-    }
-    
     enum Layout {
         case fixedCellSize(CGSize)
         case dimensions(rowCount: Int, columnCount: Int)
