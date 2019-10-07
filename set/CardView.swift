@@ -38,8 +38,11 @@ class CardView: UIView {
         if isSelected {
             roundedRectPath.lineWidth = CardView.selectionWidth
             CardView.selectionColor.setStroke()
-            roundedRectPath.stroke()
+        } else {
+            roundedRectPath.lineWidth = CardView.figureStrokeWidth
+            CardView.cardEdgeColor.setStroke()
         }
+        roundedRectPath.stroke()
     }
     
     private func drawWhiteStripes(in figureBounds: CGRect) {
@@ -98,7 +101,7 @@ class CardView: UIView {
 
 extension CardView {
     private struct SizeRatio {
-        static let cardScale: CGFloat = 0.97
+        static let cardScale: CGFloat = 0.98
         static let cornerRadiusToBoundsHeight: CGFloat = 0.06
         static let figureScale: CGFloat = 0.65
     }
@@ -126,15 +129,15 @@ extension CardView {
     
     private static let figureStrokeWidth: CGFloat = 3.0
     private static let stripesDistancy = 5
-    private static let selectionWidth: CGFloat = 5.0
-    private static let selectionColor = UIColor.blue
+    private static let selectionWidth: CGFloat = 10.0
+    private static let selectionColor = UIColor.orange
     private static let paperColor = UIColor.white
-
+    private static let cardEdgeColor = UIColor.black
     
     private var figureColor: UIColor {
         switch color {
-        case "red": return #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
-        case "green": return #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+        case "red": return #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+        case "green": return #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         case "purple": return #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
         default: return UIColor.black
         }
