@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     @IBAction func tapCheatButton(_ sender: Any) {
         game.cheat()
-        redrawCards()
+        redrawScreen()
     }
     
     @IBOutlet private weak var scoreLabel: UILabel!
@@ -25,14 +25,14 @@ class ViewController: UIViewController {
     
     @IBAction private func tapAdd3Cards(_ sender: UIButton) {
         game.addThreeCards()
-        redrawCards()
+        redrawScreen()
     }
     
     @IBOutlet private weak var newGameButton: UIButton!
     
     @IBAction private func tapNewGame() {
         game = GameSet()
-        redrawCards()
+        redrawScreen()
     }
     
     @objc func tapCard(sender: UITapGestureRecognizer) {
@@ -40,10 +40,10 @@ class ViewController: UIViewController {
         
         let location = sender.location(in: boardView)
         for i in 0..<cardsCount {
-            let cardFrame = grid[i]!
+            let cardFrame = boardView.grid[i]!
             if cardFrame.contains(location) {
                 game.selectCard(i)
-                redrawCards()
+                redrawScreen()
                 break
             }
         }
@@ -60,39 +60,14 @@ class ViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapCard))
         boardView.addGestureRecognizer(tap)
         
-        redrawCards()
+        redrawScreen()
     }
     
-    @IBOutlet weak var boardView: UIView!
+    @IBOutlet weak var boardView: BoardView!
     
-    lazy private var grid = Grid(layout: .aspectRatio(2 / 3), frame: boardView.bounds)
-    
-    private func redrawCards() {
-        let cardsCount = game.cards.count
-        
-        grid.cellCount = cardsCount
-        
-        for subView in boardView.subviews {
-            subView.removeFromSuperview()
-        }
-        
-        for i in 0..<cardsCount {
-            let cardFrame = grid[i]!
-            let cardModel = game.cards[i]
-            
-            let cardView = CardView(frame: cardFrame)
-            cardView.color = cardModel.color.rawValue
-            cardView.style = cardModel.style.rawValue
-            cardView.figure = cardModel.figure.rawValue
-            cardView.count = cardModel.count.rawValue
-            cardView.isSelected = game.selectedCards.contains(cardModel)
-            
-            cardView.backgroundColor = .clear
-            boardView.addSubview(cardView)
-        }
-
+    func redrawScreen() {
+        boardView.redrawCards(cards: game.cards, selectedCards: game.selectedCards)
         add3CardsButton.isHidden = (game.deck.count < 3)
-
         scoreLabel.text = "Score: \(game.score)"
     }
 }

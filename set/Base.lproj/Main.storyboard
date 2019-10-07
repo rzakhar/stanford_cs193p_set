@@ -73,7 +73,7 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ez8-Dk-Fjb">
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ez8-Dk-Fjb" customClass="BoardView" customModule="set" customModuleProvider="target">
                                 <rect key="frame" x="16" y="44" width="382" height="674"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0346A5E02347C94900126840 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0346A5DF2347C94900126840 /* Grid.swift */; };
 		0346A5E62347CD7100126840 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0346A5E52347CD7100126840 /* CardView.swift */; };
+		0363278F234BE50C00A920F0 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0363278E234BE50C00A920F0 /* BoardView.swift */; };
 		66C12C1C232D09EC0067A916 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C12C1B232D09EC0067A916 /* AppDelegate.swift */; };
 		66C12C1E232D09EC0067A916 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C12C1D232D09EC0067A916 /* ViewController.swift */; };
 		66C12C21232D09EC0067A916 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C12C1F232D09EC0067A916 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		0346A5DF2347C94900126840 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		0346A5E52347CD7100126840 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		0363278E234BE50C00A920F0 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		66C12C18232D09EC0067A916 /* set.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = set.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C12C1B232D09EC0067A916 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66C12C1D232D09EC0067A916 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		66C12C1A232D09EC0067A916 /* set */ = {
 			isa = PBXGroup;
 			children = (
+				0363278E234BE50C00A920F0 /* BoardView.swift */,
 				66C12C2F232D0E280067A916 /* Card.swift */,
 				0346A5E52347CD7100126840 /* CardView.swift */,
 				0346A5DF2347C94900126840 /* Grid.swift */,
@@ -155,6 +158,7 @@
 				66C12C1C232D09EC0067A916 /* AppDelegate.swift in Sources */,
 				66C12C2E232D0DF70067A916 /* GameModel.swift in Sources */,
 				66C12C30232D0E280067A916 /* Card.swift in Sources */,
+				0363278F234BE50C00A920F0 /* BoardView.swift in Sources */,
 				0346A5E62347CD7100126840 /* CardView.swift in Sources */,
 				0346A5E02347C94900126840 /* Grid.swift in Sources */,
 			);
