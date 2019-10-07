@@ -27,18 +27,35 @@ class CardView: UIView {
         setNeedsDisplay()
     }
     
-    override func draw(_ rect: CGRect) {
+    private func drawCardBackground() {
+        isOpaque = false
         let roundedRectPath = UIBezierPath(roundedRect: bounds.zoom(by: SizeRatio.cardScale),
                                            cornerRadius: cornerRadius)
-        UIColor.white.setFill()
+        CardView.paperColor.setFill()
         roundedRectPath.addClip()
         roundedRectPath.fill()
         
         if isSelected {
-            roundedRectPath.lineWidth = 5.0
-            UIColor.blue.setStroke()
+            roundedRectPath.lineWidth = CardView.selectionWidth
+            CardView.selectionColor.setStroke()
             roundedRectPath.stroke()
         }
+    }
+    
+    private func drawWhiteStripes(in figureBounds: CGRect) {
+        let stripesPath = UIBezierPath()
+        for i in stride(from: Int(figureBounds.minX),
+                        through: Int(figureBounds.maxX),
+                        by: CardView.stripesDistancy) {
+            stripesPath.move(to: CGPoint(x: i, y: Int(figureBounds.minY)))
+            stripesPath.addLine(to: CGPoint(x: i, y: Int(figureBounds.maxY)))
+        }
+        CardView.paperColor.setStroke()
+        stripesPath.stroke()
+    }
+    
+    override func draw(_ rect: CGRect) {
+        drawCardBackground()
         
         var figurePath = UIBezierPath()
         
@@ -50,22 +67,13 @@ class CardView: UIView {
         default: break
         }
         
-        var figureColor: UIColor = UIColor.black
-        switch color {
-        case "red": figureColor = #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
-        case "green": figureColor = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
-        case "purple": figureColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-        default: break
-        }
-        
         figurePath.apply(CGAffineTransform(scaleX: SizeRatio.figureScale,
                                            y: SizeRatio.figureScale))
         figurePath.apply(CGAffineTransform(translationX: firstFigureOffset.x,
                                            y: firstFigureOffset.y))
         
         for _ in 0..<count {
-            figurePath.lineWidth = 3.0
-
+            figurePath.lineWidth = CardView.figureStrokeWidth
             figurePath.apply(CGAffineTransform(translationX: 0,
                                                y: figureSize.height))
             
@@ -76,15 +84,7 @@ class CardView: UIView {
             case "striped":
                 figureColor.setFill()
                 figurePath.fill()
-                let stripesPath = UIBezierPath()
-                for i in stride(from: Int(figurePath.bounds.minX),
-                                through: Int(figurePath.bounds.maxX),
-                                by: 5) {
-                    stripesPath.move(to: CGPoint(x: i, y: Int(figurePath.bounds.minY)))
-                    stripesPath.addLine(to: CGPoint(x: i, y: Int(figurePath.bounds.maxY)))
-                }
-                UIColor.white.setStroke()
-                stripesPath.stroke()
+                drawWhiteStripes(in: figurePath.bounds)
                 figureColor.setStroke()
                 figurePath.stroke()
             case "open":
@@ -122,6 +122,22 @@ extension CardView {
         let offsetScale = (1 - SizeRatio.figureScale) / 2
         return (x: figureSize.width * offsetScale,
                 y: figureSize.height * (translationsY + offsetScale))
+    }
+    
+    private static let figureStrokeWidth: CGFloat = 3.0
+    private static let stripesDistancy = 5
+    private static let selectionWidth: CGFloat = 5.0
+    private static let selectionColor = UIColor.blue
+    private static let paperColor = UIColor.white
+
+    
+    private var figureColor: UIColor {
+        switch color {
+        case "red": return #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
+        case "green": return #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+        case "purple": return #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        default: return UIColor.black
+        }
     }
 }
 
