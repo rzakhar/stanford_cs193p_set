@@ -34,6 +34,12 @@ class CardView: UIView {
         roundedRectPath.addClip()
         roundedRectPath.fill()
         
+        if isSelected {
+            roundedRectPath.lineWidth = 5.0
+            UIColor.blue.setStroke()
+            roundedRectPath.stroke()
+        }
+        
         var figurePath = UIBezierPath()
         
         switch figure {

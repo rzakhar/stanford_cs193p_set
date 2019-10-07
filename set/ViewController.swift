@@ -90,13 +90,7 @@ class ViewController: UIViewController {
             card.count = cardModel.count.rawValue
             card.backgroundColor = .clear
             card.isOpaque = false
-            // TODO: mode to view
-            if game.selectedCards.contains(game.cards[i]) {
-                card.layer.borderWidth = 5.0
-                card.layer.borderColor = UIColor.blue.cgColor
-            } else {
-                card.layer.borderWidth = 0.0
-            }
+            card.isSelected = game.selectedCards.contains(cardModel)
             boardView.addSubview(card)
         }
 
