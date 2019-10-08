@@ -24,8 +24,10 @@ class ViewController: UIViewController {
     @IBOutlet private weak var add3CardsButton: UIButton!
     
     @IBAction private func tapAdd3Cards(_ sender: UIButton) {
-        game.addThreeCards()
-        redrawScreen()
+        if game.deck.count >= 3 {
+            game.addThreeCards()
+            redrawScreen()
+        }
     }
     
     @IBOutlet private weak var newGameButton: UIButton!
@@ -49,6 +51,10 @@ class ViewController: UIViewController {
         }
     }
     
+    @objc func swipeBoard(sender: UISwipeGestureRecognizer) {
+        tapAdd3Cards(newGameButton)
+    }
+    
     internal override func viewDidLoad() {
         super.viewDidLoad()
         for interfaceButton in [add3CardsButton, cheatButton, newGameButton] {
@@ -59,6 +65,14 @@ class ViewController: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapCard))
         boardView.addGestureRecognizer(tap)
+        
+        let verticalSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeBoard))
+        verticalSwipe.direction = [.down, .up]
+        boardView.addGestureRecognizer(verticalSwipe)
+        
+        let horizontalSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeBoard))
+        horizontalSwipe.direction = [.left, .right]
+        boardView.addGestureRecognizer(horizontalSwipe)
         
         redrawScreen()
     }
