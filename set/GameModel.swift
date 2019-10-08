@@ -42,6 +42,10 @@ class GameSet {
         }
     }
     
+    func shuffleCards() {
+        cards.shuffle()
+    }
+    
     func cheat() {
         score -= 9
         if possibleSet.count == 3 {

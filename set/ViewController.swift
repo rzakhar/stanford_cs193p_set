@@ -55,6 +55,14 @@ class ViewController: UIViewController {
         tapAdd3Cards(newGameButton)
     }
     
+    @objc func rotationBoard(sender: UIRotationGestureRecognizer) {
+        if abs(sender.rotation) > (CGFloat.pi / 4) {
+            game.shuffleCards()
+            redrawScreen()
+            sender.rotation = 0
+        }
+    }
+    
     internal override func viewDidLoad() {
         super.viewDidLoad()
         for interfaceButton in [add3CardsButton, cheatButton, newGameButton] {
@@ -73,6 +81,9 @@ class ViewController: UIViewController {
         let horizontalSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeBoard))
         horizontalSwipe.direction = [.left, .right]
         boardView.addGestureRecognizer(horizontalSwipe)
+        
+        let rotation = UIRotationGestureRecognizer(target: self, action: #selector(rotationBoard))
+        boardView.addGestureRecognizer(rotation)
         
         redrawScreen()
     }
