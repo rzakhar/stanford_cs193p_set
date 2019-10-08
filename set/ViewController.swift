@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     @IBOutlet private weak var cheatButton: UIButton!
     
-    @IBAction func tapCheatButton(_ sender: Any) {
+    @IBAction private func tapCheatButton(_ sender: Any) {
         game.cheat()
         redrawScreen()
     }
@@ -37,7 +37,9 @@ class ViewController: UIViewController {
         redrawScreen()
     }
     
-    @objc func tapCard(sender: UITapGestureRecognizer) {
+    @IBOutlet private weak var boardView: BoardView!
+
+    @objc private func tapCard(sender: UITapGestureRecognizer) {
         let cardsCount = game.cards.count
         
         let location = sender.location(in: boardView)
@@ -51,11 +53,11 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func swipeBoard(sender: UISwipeGestureRecognizer) {
+    @objc private func swipeBoard(sender: UISwipeGestureRecognizer) {
         tapAdd3Cards(newGameButton)
     }
     
-    @objc func rotationBoard(sender: UIRotationGestureRecognizer) {
+    @objc private func rotationBoard(sender: UIRotationGestureRecognizer) {
         if abs(sender.rotation) > (CGFloat.pi / 4) {
             game.shuffleCards()
             redrawScreen()
@@ -88,9 +90,7 @@ class ViewController: UIViewController {
         redrawScreen()
     }
     
-    @IBOutlet weak var boardView: BoardView!
-    
-    func redrawScreen() {
+    private func redrawScreen() {
         boardView.redrawCards(cards: game.cards, selectedCards: game.selectedCards)
         add3CardsButton.isHidden = (game.deck.count < 3)
         scoreLabel.text = "Score: \(game.score)"

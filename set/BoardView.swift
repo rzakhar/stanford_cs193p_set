@@ -10,13 +10,11 @@ import UIKit
 
 class BoardView: UIView {
 
-    lazy var grid = Grid(layout: .aspectRatio(2 / 3), frame: bounds)
+    lazy private(set) var grid = Grid(layout: .aspectRatio(2 / 3), frame: bounds)
     
     internal override func layoutSubviews() {
         super.layoutSubviews()
-        let cardsCount = grid.cellCount
-        grid = Grid(layout: .aspectRatio(2 / 3), frame: bounds)
-        grid.cellCount = cardsCount
+        grid.frame = bounds
         
         var counter = 0
         for subview in subviews {

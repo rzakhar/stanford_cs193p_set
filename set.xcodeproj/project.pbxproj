@@ -66,18 +66,18 @@
 		66C12C1A232D09EC0067A916 /* set */ = {
 			isa = PBXGroup;
 			children = (
+				66C12C22232D09EE0067A916 /* Assets.xcassets */,
+				66C12C1B232D09EC0067A916 /* AppDelegate.swift */,
 				0363278E234BE50C00A920F0 /* BoardView.swift */,
 				66C12C2F232D0E280067A916 /* Card.swift */,
 				0346A5E52347CD7100126840 /* CardView.swift */,
-				0346A5DF2347C94900126840 /* Grid.swift */,
-				66C12C1B232D09EC0067A916 /* AppDelegate.swift */,
-				66C12C1D232D09EC0067A916 /* ViewController.swift */,
-				66C12C1F232D09EC0067A916 /* Main.storyboard */,
-				66C12C22232D09EE0067A916 /* Assets.xcassets */,
-				66C12C24232D09EE0067A916 /* LaunchScreen.storyboard */,
-				66C12C27232D09EE0067A916 /* Info.plist */,
-				66C12C2D232D0DF70067A916 /* GameModel.swift */,
 				66C12C31232D38E50067A916 /* Extensions.swift */,
+				66C12C2D232D0DF70067A916 /* GameModel.swift */,
+				0346A5DF2347C94900126840 /* Grid.swift */,
+				66C12C27232D09EE0067A916 /* Info.plist */,
+				66C12C24232D09EE0067A916 /* LaunchScreen.storyboard */,
+				66C12C1F232D09EC0067A916 /* Main.storyboard */,
+				66C12C1D232D09EC0067A916 /* ViewController.swift */,
 			);
 			path = set;
 			sourceTree = "<group>";

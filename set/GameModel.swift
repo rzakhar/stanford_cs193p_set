@@ -12,7 +12,7 @@ class GameSet {
     
     private(set) var cards = [Card]()
     private(set) var selectedCards = [Card]()
-    private var possibleSet = [Card]()
+    private(set) var possibleSet = [Card]()
     private(set) var deck = [Card]()
     private(set) var score = 0
     
