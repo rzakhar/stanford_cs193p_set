@@ -92,7 +92,8 @@ class ViewController: UIViewController {
     
     private func redrawScreen() {
         boardView.redrawCards(cards: game.cards, selectedCards: game.selectedCards)
-        add3CardsButton.isHidden = (game.deck.count < 3)
+        add3CardsButton.isHidden = game.deck.count == 0
+        cheatButton.isHidden = game.deck.count == 0 && game.possibleSet.isEmpty
         scoreLabel.text = "Score: \(game.score)"
     }
 }
