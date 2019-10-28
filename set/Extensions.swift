@@ -12,47 +12,47 @@ extension String {
     func repeated(times: Int) -> String {
         var result = String()
         for _ in 0..<times {
-            result = result + self
+            result += self
         }
-        
+
         return result
     }
 }
 
-extension Array where Element : Equatable {
+extension Array where Element: Equatable {
     var allElementsEqualOrUnique: Bool {
-    
+
         return allElementsEqual || allElementsUnique
     }
-    
+
     var allElementsEqual: Bool {
         if count == 0 {
-            
+
             return true
         } else {
             let firstElement = first!
-            
+
             return count(of: firstElement) == count
         }
     }
-    
+
     var allElementsUnique: Bool {
         var arrayCopy = self
         while arrayCopy.count > 0 {
             let firstElement = arrayCopy.first!
             if arrayCopy.count(of: firstElement) != 1 {
-                
+
                 return false
             } else {
                 arrayCopy.remove(at: 0)
             }
         }
-        
+
         return true
     }
-    
+
     func count(of element: Element) -> Int {
-        return filter( { $0 == element } ).count
+        return filter({ $0 == element }).count
     }
 }
 
@@ -63,15 +63,15 @@ extension CGRect {
     var rightHalf: CGRect {
         return CGRect(x: midX, y: minY, width: width/2, height: height)
     }
-    
+
     func inset(by size: CGSize) -> CGRect {
         return insetBy(dx: size.width, dy: size.height)
     }
-    
+
     func sized(to size: CGSize) -> CGRect {
         return CGRect(origin: origin, size: size)
     }
-    
+
     func zoom(by scale: CGFloat) -> CGRect {
         let newWidth = width * scale
         let newHeight = height * scale
@@ -95,15 +95,15 @@ extension UIBezierPath {
         diamondPath.close()
         return diamondPath
     }
-    
+
     static func squiggle(in rect: CGRect) -> UIBezierPath {
         let squigglePath = UIBezierPath()
-        
+
         func point(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
             return CGPoint(x: x / 99 * rect.width,
                            y: y / 47 * rect.height)
         }
-        
+
         squigglePath.move(to: point(99, 3))
         squigglePath.addCurve(to: point(58, 42),
                               controlPoint1: point(108, 25),
