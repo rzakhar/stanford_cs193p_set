@@ -21,12 +21,18 @@ class CardView: UIView {
     var color: String = "red" { didSet { setNeedsDisplay(); setNeedsLayout() }}
     @IBInspectable
     var isSelected: Bool = false { didSet { setNeedsDisplay(); setNeedsLayout() }}
+    @IBInspectable
+    var isFaceUp: Bool = true { didSet { setNeedsDisplay(); setNeedsLayout() }}
 
     private func drawCardBackground() {
         isOpaque = false
         let roundedRectPath = UIBezierPath(roundedRect: bounds.zoom(by: SizeRatio.cardScale),
                                            cornerRadius: cornerRadius)
-        CardView.paperColor.setFill()
+        if isFaceUp {
+            CardView.frontColor.setFill()
+        } else {
+            CardView.backColor.setFill()
+        }
         roundedRectPath.addClip()
         roundedRectPath.fill()
 
@@ -48,12 +54,18 @@ class CardView: UIView {
             stripesPath.move(to: CGPoint(x: i, y: Int(figureBounds.minY)))
             stripesPath.addLine(to: CGPoint(x: i, y: Int(figureBounds.maxY)))
         }
-        CardView.paperColor.setStroke()
+        CardView.frontColor.setStroke()
         stripesPath.stroke()
     }
 
     override internal func draw(_ rect: CGRect) {
         drawCardBackground()
+
+        if !isFaceUp {
+            drawWhiteStripes(in: bounds)
+
+            return
+        }
 
         var figurePath = UIBezierPath()
 
@@ -126,7 +138,8 @@ extension CardView {
     private static let stripesDistancy = 5
     private static let selectionWidth: CGFloat = 10.0
     private static let selectionColor = UIColor.orange
-    private static let paperColor = UIColor.white
+    private static let frontColor = UIColor.white
+    private static let backColor = UIColor.darkGray
     private static let cardEdgeColor = UIColor.black
 
     private var figureColor: UIColor {
