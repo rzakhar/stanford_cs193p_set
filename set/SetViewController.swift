@@ -37,14 +37,55 @@ class SetViewController: UIViewController {
         redrawScreen()
     }
 
-    @IBOutlet private weak var boardView: BoardView!
+    @IBOutlet private weak var boardView: UIView!
+
+    lazy private(set) var grid = Grid(layout: .aspectRatio(2 / 3), frame: boardView.bounds)
+
+    internal override func viewDidLayoutSubviews() {
+        view.layoutSubviews()
+        grid.frame = boardView.bounds
+
+        var counter = 0
+        for subview in boardView.subviews {
+            subview.frame = grid[counter]!
+            counter += 1
+            subview.setNeedsDisplay()
+        }
+    }
+
+    func redrawCards() {
+        let cards = game.cards
+        let selectedCards = game.selectedCards
+        let cardsCount = cards.count
+
+        grid.cellCount = cardsCount
+
+        for subview in boardView.subviews {
+            subview.removeFromSuperview()
+        }
+
+        for index in 0..<cardsCount {
+            let cardFrame = grid[index]!
+            let cardModel = cards[index]
+
+            let cardView = CardView(frame: cardFrame)
+            cardView.color = cardModel.color.rawValue
+            cardView.style = cardModel.style.rawValue
+            cardView.figure = cardModel.figure.rawValue
+            cardView.count = cardModel.count.rawValue
+            cardView.isSelected = selectedCards.contains(cardModel)
+
+            cardView.backgroundColor = .clear
+            boardView.addSubview(cardView)
+        }
+    }
 
     @objc private func tapCard(sender: UITapGestureRecognizer) {
         let cardsCount = game.cards.count
 
         let location = sender.location(in: boardView)
         for index in 0..<cardsCount {
-            let cardFrame = boardView.grid[index]!
+            let cardFrame = grid[index]!
             if cardFrame.contains(location) {
                 game.selectCard(index)
                 redrawScreen()
@@ -91,7 +132,7 @@ class SetViewController: UIViewController {
     }
 
     private func redrawScreen() {
-        boardView.redrawCards(cards: game.cards, selectedCards: game.selectedCards)
+        redrawCards()
         add3CardsButton.isHidden = game.deck.count == 0
         cheatButton.isHidden = game.deck.count == 0 && game.possibleSet.isEmpty
         scoreLabel.text = "Score: \(game.score)"
