@@ -52,22 +52,12 @@ class SetViewController: UIViewController {
 
     lazy private(set) var grid = Grid(layout: .aspectRatio(2 / 3), frame: boardView.bounds)
 
-//    internal override func viewDidLayoutSubviews() {
-//        view.layoutSubviews()
-//        grid.frame = boardView.bounds
-//
-//        var counter = 1
-//        for subview in boardView.subviews {
-//            let card = subview as! CardView
-//            if card.isFaceUp {
-//                subview.frame = grid[counter]!
-//                counter += 1
-//            } else {
-//                subview.frame = grid[0]!
-//            }
-//            subview.setNeedsDisplay()
-//        }
-//    }
+    internal override func viewDidLayoutSubviews() {
+        view.layoutSubviews()
+        grid.frame = boardView.bounds
+
+        redrawCards()
+    }
 
     private var displayedCards: [Card] = []
 
