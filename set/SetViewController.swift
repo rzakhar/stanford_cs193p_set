@@ -112,8 +112,10 @@ class SetViewController: UIViewController {
         for gridCellIndex in 0..<grid.cellCount {
             let cardFrame = grid[gridCellIndex]!
             if cardFrame.contains(location) {
-                if gridCellIndex == 0, !game.deck.isEmpty {
-                    deal3Cards()
+                if gridCellIndex == 0 {
+                    if !game.deck.isEmpty {
+                        deal3Cards()
+                    }
                 } else {
                     game.selectCard(gridCellIndex - 1)
                     redrawScreen()
